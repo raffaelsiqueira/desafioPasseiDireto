@@ -3,48 +3,44 @@ var router = express.Router()
 var db = require('../db');
 
 //Select de todos os discos
-exports.get = async(res) => {
+exports.get = async() => {
     let sql = 'SELECT * FROM discos';
-    db(sql, [], res);
+    const results = await db(sql, []);
+    return results;
 };
 
-//Select de um único disco por id
-/*exports.getById = async(id, res) => {
-    console.log('get por id');
-    let sql = `SELECT * FROM discos WHERE id_disco = ?`;
-    db(sql, [id], res);
-};*/
-
 //Select de um único disco por nome
-exports.getByNome = async(nome, res) => {
+exports.getByNome = async(nome) => {
     let sql = `SELECT * FROM discos WHERE nome_disco = ?`;
-    db(sql, [nome.substring(0, 45)], res);
+    const results = await db(sql, [nome.substring(0, 45)]);
+    return results;
 };
 
 //Cria um novo disco
-exports.create = async(data, res) => {
+exports.create = async(data) => {
     const id_artista = parseInt(data.id_artista);
     const nome_disco = data.nome_disco.substring(0, 45);
     const data_lancamento = data.data_lancamento.substring(0, 10);
     const id_gravadora = parseInt(data.id_gravadora);
     let sql = `INSERT INTO discos(id_artista, nome_disco, data_lancamento, id_gravadora) VALUES(?, ?, ?, ?)`;
-    db(sql, [id_artista, nome_disco, data_lancamento, id_gravadora], res);
+    const results = await db(sql, [id_artista, nome_disco, data_lancamento, id_gravadora]);
+    return results;
 }
 
 //Atualiza um disco
-exports.update = async(id, data, res) => {
+exports.update = async(id, data) => {
     const id_disco = parseInt(id);
     const id_artista = parseInt(data.id_artista);
     const nome_disco = data.nome_disco.substring(0, 45);
     const data_lancamento = data.data_lancamento.substring(0, 10);
     const id_gravadora = parseInt(data.id_gravadora);
     let sql = `UPDATE discos SET id_artista = ?, nome_disco = ?, data_lancamento = ?, id_gravadora = ? WHERE id_disco = ?`;
-    db(sql, [id_artista, nome_disco, data_lancamento, id_gravadora, id_disco] ,res);
+    db(sql, [id_artista, nome_disco, data_lancamento, id_gravadora, id_disco]);
 };
 
 //Delete de um disco
-exports.delete = async(id, res) => {
+exports.delete = async(id) => {
     const id_disco = parseInt(id);
     let sql = `DELETE FROM discos WHERE id_disco = ?`;
-    db(sql, [id_disco], res);
+    db(sql, [id_disco]);
 };

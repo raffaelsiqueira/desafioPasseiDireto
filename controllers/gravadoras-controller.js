@@ -1,38 +1,31 @@
 const repositorio = require('../repositories/gravadoras-repository.js');
 
-exports.get = async(req, res, next) => {
+const consulta = async(req, res, next) => {
     try {
-        var data = await repositorio.get(res);
+        const results = await repositorio.get();
+        req.resultConsulta = results;
+        next();
     } catch (e) {
-        res.status(500).send({
-            message: 'Falha ao processar sua requisição'
-        });
+        next(e);
     }
 };
 
-/*exports.getById = async(req, res, next) => {
+const consultaPorNome = async(req, res, next) => {
     try{
-        var data = await repositorio.getById(req.params.id, res);
+        const results =  await repositorio.getByNome(req.params.nome);
+        req.resultConsulta = results;
+        next();
     } catch (e) {
-        res.status(500).send({
-            message: 'Falha ao processar sua requisição'
-        });
-    }
-};*/
-
-exports.getByNome = async(req, res, next) => {
-    try{
-        var data = await repositorio.getByNome(req.params.nome, res);
-    } catch (e) {
-        res.status(500).send({
-            message: 'Falha ao processar sua requisição'
-        });
+        next(e);
     }
 };
 
 exports.patch = async(req, res, next) => {
     try{
-        await repositorio.update(req.params.id, req.body, res);
+        await repositorio.update(req.params.id, req.body);
+        res.status(200).send({
+            message: 'Registro atualizado com sucesso!'
+        });
     } catch (e){
         console.log(e);
         res.status(500).send({
@@ -41,25 +34,33 @@ exports.patch = async(req, res, next) => {
     }
 };
 
-exports.post = async(req, res, next) => {
+const cadastrar = async(req, res, next) => {
     try{
-        await repositorio.create(req.body, res);
+        await repositorio.create(req.body);
+	    next();
     } catch(e){
-        res.status(500).send({
-            message: 'Falha ao processar requisição'
-        });
+        next(e);
     }
-
 }
 
 exports.delete = async(req, res, next) => {
     try {
-        await repositorio.delete(req.params.id, res)
+        await repositorio.delete(req.params.id);
+        res.status(200).send({
+            message: 'Registro deletado com sucesso!'
+        });
     } catch(e){
         res.status(500).send({
             message: 'Falha ao remover gravadora',
             data: e
         });
     }
-
 };
+
+exports.get = async(req, res, next) => {
+    res.status(200).send(req.resultConsulta);
+}
+
+exports.consulta = consulta;
+exports.consultaPorNome = consultaPorNome;
+exports.cadastrar = cadastrar;

@@ -16,16 +16,17 @@ db.connect((err) => {
     console.log('Banco conectado com sucesso!')
 });
 
-function executarQuerySql(sqlQry, parametros, res){
-    db.query(sqlQry, parametros, function(error, results, fields){
-        if (error){
-            res.json(error);
-        }
-        else{
-            res.json(results);
-        }
-        console.log('Query efetuada com sucesso!');
-    });
+function executarQuerySql(sqlQry, parametros){
+    return new Promise((resolve, reject) => {db.query(sqlQry, parametros, function(error, results, fields){
+            if (error){
+                reject(error);
+            }
+            else{
+                resolve(results);
+                console.log('Query efetuada com sucesso!');
+            }
+        });
+    })
 }
 
 module.exports = executarQuerySql;
