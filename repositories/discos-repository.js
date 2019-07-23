@@ -4,7 +4,7 @@ var db = require('../db');
 
 //Select de todos os discos
 exports.get = async() => {
-    let sql = 'SELECT * FROM discos';
+    let sql = 'select discos.id_disco, artistas.nome_artista, discos.nome_disco, discos.data_lancamento, gravadoras.nome_gravadora from discos join artistas on artistas.id_artista = discos.id_artista join gravadoras on gravadoras.id_gravadora = discos.id_gravadora';
     const results = await db(sql, []);
     return results;
 };

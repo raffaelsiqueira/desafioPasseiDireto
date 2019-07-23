@@ -23,7 +23,9 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "pubsub-js": "^1.7.0",
+    "react-router": "^3.2.3"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"

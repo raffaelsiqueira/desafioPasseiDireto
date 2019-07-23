@@ -4,7 +4,7 @@ var db = require('../db');
 
 //Select de todos os artistas
 exports.get = async() => {
-    let sql = 'SELECT * FROM artistas';
+    let sql = 'select artistas.id_artista, artistas.nome_artista, artistas.origem, generos.nome_genero from artistas join generos where artistas.id_genero = generos.id_genero';
     const results = await db(sql, []);
     return results;
 };
