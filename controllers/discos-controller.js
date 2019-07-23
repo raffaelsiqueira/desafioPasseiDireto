@@ -22,14 +22,9 @@ const consultaPorNome = async(req, res, next) => {
 exports.patch = async(req, res, next) => {
     try{
         await repositorio.update(req.params.id, req.body);
-        res.status(200).send({
-            message: 'Registro atualizado com sucesso!'
-        });
+        next();
     } catch (e){
-        console.log(e);
-        res.status(500).send({
-            message: 'Falha ao processar sua requisição'
-        });
+        next(e);
     }
 };
 
@@ -45,14 +40,9 @@ const cadastrar = async(req, res, next) => {
 exports.delete = async(req, res, next) => {
     try {
         await repositorio.delete(req.params.id);
-        res.status(200).send({
-            message: 'Registro deletado com sucesso!'
-        });
+        next();
     } catch(e){
-        res.status(500).send({
-            message: 'Falha ao remover disco',
-            data: e
-        });
+        next(e);
     }
 };
 

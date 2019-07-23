@@ -4,15 +4,15 @@ var db = require('../db');
 
 //Select de todos os discos
 exports.get = async() => {
-    let sql = 'select discos.id_disco, artistas.nome_artista, discos.nome_disco, discos.data_lancamento, gravadoras.nome_gravadora from discos join artistas on artistas.id_artista = discos.id_artista join gravadoras on gravadoras.id_gravadora = discos.id_gravadora';
+    let sql = 'select discos.id_disco, artistas.nome_artista, discos.nome_disco, discos.data_lancamento, gravadoras.nome_gravadora, discos.id_artista, gravadoras.id_gravadora from discos join artistas on artistas.id_artista = discos.id_artista join gravadoras on gravadoras.id_gravadora = discos.id_gravadora';
     const results = await db(sql, []);
     return results;
 };
 
 //Select de um único disco por nome
 exports.getByNome = async(nome) => {
-    let sql = `SELECT * FROM discos WHERE nome_disco = ?`;
-    const results = await db(sql, [nome.substring(0, 45)]);
+    let sql = `SELECT discos.id_disco, artistas.nome_artista, discos.nome_disco, discos.data_lancamento, gravadoras.nome_gravadora, discos.id_artista, gravadoras.id_gravadora FROM discos join artistas on artistas.id_artista = discos.id_artista join gravadoras on gravadoras.id_gravadora = discos.id_gravadora WHERE discos.nome_disco LIKE '%` + nome.substring(0, 45) + `%'`;
+    const results = await db(sql, []);
     return results;
 };
 

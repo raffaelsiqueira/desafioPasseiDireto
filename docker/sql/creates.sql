@@ -35,3 +35,21 @@ CREATE TABLE `discos` (
 ALTER TABLE `artistas` ADD CONSTRAINT `fk_genero` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id_genero`);
 
 ALTER TABLE `discos` ADD CONSTRAINT `fk_artista` FOREIGN KEY (`id_artista`) REFERENCES `artistas` (`id_artista`);
+
+insert into gravadoras(nome_gravadora)
+values('Raffael Gravadora Ltda');
+
+insert into gravadoras(nome_gravadora)
+values('FFC 1902 Gravadora');
+
+insert into generos(nome_genero)
+values('Rock');
+
+insert into generos(nome_genero)
+values('Pop');
+
+insert into artistas(nome_artista, origem, id_genero)
+values('Metallica', 'EUA', 1);
+
+insert into discos(id_artista, nome_disco, data_lancamento, id_gravadora)
+values(1, 'Metallica', '1991-08-12', 1);
