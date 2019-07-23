@@ -27,13 +27,13 @@ Serão necessários dois terminais abertos na pasta raiz do projeto. Um para sub
 Para deixar o banco de dados de pé, é necessário rodar o seguinte comando docker:
 
 ```
-docker run --rm --name raffael -p 10000:3306 -v <PROJ_ROOT>/docker/data:/var/lib/mysql -v <PROJ_ROOT>/docker/sql:/docker-entrypoint-initdb.d -e MYSQL_ROOT_PASSWORD=123456 mysql:latest
+docker run --rm --name raffael -p 3306:3306 -v <PROJ_ROOT>/docker/data:/var/lib/mysql -v <PROJ_ROOT>/docker/sql:/docker-entrypoint-initdb.d -e MYSQL_ROOT_PASSWORD=123456 mysql:latest
 ```
 
 Incluindo o diretório onde está a pasta da aplicação. Como exemplo, o que foi utilizado durante o desenvolvimento:
 
 ```
-docker run --rm --name raffael -p 10000:3306 -v c:/raffael/data:/var/lib/mysql -v c:/raffael/sql:/docker-entrypoint-initdb.d -e MYSQL_ROOT_PASSWORD=123456 mysql:latest
+docker run --rm --name raffael -p 3306:3306 -v c:/raffael/data:/var/lib/mysql -v c:/raffael/sql:/docker-entrypoint-initdb.d -e MYSQL_ROOT_PASSWORD=123456 mysql:latest
 ```
 
 ### Inicializando a aplicação
